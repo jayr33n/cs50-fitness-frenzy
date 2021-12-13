@@ -1,4 +1,4 @@
-package com.jayr33n.exercise;
+package com.jayr33n.api;
 
 import com.jayr33n.domain.Exercise;
 import com.jayr33n.repository.ExerciseRepository;
@@ -12,7 +12,6 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/exercises/search")
 public class ExerciseQueryController {

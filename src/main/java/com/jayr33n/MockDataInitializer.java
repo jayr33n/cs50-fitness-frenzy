@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-
 @Singleton
 public class MockDataInitializer {
     private final ExerciseRepository exerciseRepository;

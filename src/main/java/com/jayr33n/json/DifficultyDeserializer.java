@@ -10,8 +10,7 @@ import java.util.Arrays;
 
 public class DifficultyDeserializer extends JsonDeserializer<Difficulty> {
     @Override
-    public Difficulty deserialize(JsonParser jsonParser,
-                                  DeserializationContext deserializationContext)
+    public Difficulty deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
         var value = jsonParser.readValueAs(String.class);
         return Arrays.stream(Difficulty.values())

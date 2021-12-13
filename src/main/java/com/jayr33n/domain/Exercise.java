@@ -1,7 +1,7 @@
 package com.jayr33n.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jayr33n.exercise.ExerciseUpdateCommand;
+import com.jayr33n.command.ExerciseUpdateCommand;
 import io.micronaut.core.annotation.NonNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-
 @Entity
 @Table(name = "exercises")
 public class Exercise extends AbstractEntity {

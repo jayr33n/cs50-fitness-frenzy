@@ -1,12 +1,12 @@
-package com.jayr33n.equipment;
+package com.jayr33n.api;
 
+import com.jayr33n.command.EquipmentCreateCommand;
 import com.jayr33n.domain.Equipment;
 import com.jayr33n.exception.EntityNotFoundException;
 import com.jayr33n.repository.EquipmentRepository;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
-import io.micronaut.http.HttpHeaders;
-import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/equipment")
 public class EquipmentController {
@@ -27,21 +26,19 @@ public class EquipmentController {
     }
 
     @Post
-    public HttpResponse<Equipment> post(@Body @Valid EquipmentCreateCommand command) {
-        var equipment = repository.save(new Equipment(command.getName()));
-        return HttpResponse.created(equipment)
-                .header(HttpHeaders.LOCATION, "/equipment/" + equipment.getId());
+    @Status(HttpStatus.CREATED)
+    public void post(@Body @Valid EquipmentCreateCommand command) {
+        repository.save(new Equipment(command.getName()));
     }
 
     @Get("/{id}")
     public Equipment get(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id, Equipment.class));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Equipment.class));
     }
 
     @Delete("/{id}")
-    public HttpResponse<?> delete(Long id) {
+    @Status(HttpStatus.NO_CONTENT)
+    public void delete(Long id) {
         repository.deleteById(id);
-        return HttpResponse.noContent();
     }
 }

@@ -19,7 +19,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-
 @Entity
 @Table(name = "muscles")
 public class Muscle extends AbstractEntity {

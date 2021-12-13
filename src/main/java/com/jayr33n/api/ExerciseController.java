@@ -1,12 +1,13 @@
-package com.jayr33n.exercise;
+package com.jayr33n.api;
 
+import com.jayr33n.command.ExerciseCreateCommand;
+import com.jayr33n.command.ExerciseUpdateCommand;
 import com.jayr33n.domain.Exercise;
 import com.jayr33n.exception.EntityNotFoundException;
 import com.jayr33n.repository.ExerciseRepository;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
-import io.micronaut.http.HttpHeaders;
-import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
@@ -15,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/exercises")
 public class ExerciseController {
@@ -27,10 +27,9 @@ public class ExerciseController {
     }
 
     @Post
-    public HttpResponse<Exercise> post(@Body @Valid ExerciseCreateCommand command) {
-        var exercise = repository.save(new Exercise(command.getName(), command.getDifficulty()));
-        return HttpResponse.created(exercise)
-                .header(HttpHeaders.LOCATION, "/exercises/" + exercise.getId());
+    @Status(HttpStatus.CREATED)
+    public void post(@Body @Valid ExerciseCreateCommand command) {
+        repository.save(new Exercise(command.getName(), command.getDifficulty()));
     }
 
     @Get("/{id}")
@@ -40,17 +39,16 @@ public class ExerciseController {
     }
 
     @Put("/{id}")
-    public HttpResponse<?> put(Long id, @Body ExerciseUpdateCommand command) {
+    @Status(HttpStatus.NO_CONTENT)
+    public void put(Long id, @Body ExerciseUpdateCommand command) {
         var exercise = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Exercise.class));
         repository.update(exercise.map(command));
-        return HttpResponse.noContent()
-                .header(HttpHeaders.LOCATION, "/exercises/" + exercise.getId());
     }
 
     @Delete("/{id}")
-    public HttpResponse<?> delete(Long id) {
+    @Status(HttpStatus.NO_CONTENT)
+    public void delete(Long id) {
         repository.deleteById(id);
-        return HttpResponse.noContent();
     }
 }

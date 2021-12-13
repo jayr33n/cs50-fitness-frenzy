@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 
 @Getter
 @Setter
-
 @MappedSuperclass
 public abstract class AbstractEntity {
     @Id
