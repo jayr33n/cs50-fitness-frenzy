@@ -3,4 +3,25 @@ defaultPackage: com.jayr33n
 testFramework: junit
 sourceLanguage: java
 buildTool: maven
-features: [ annotation-api, app-name, http-client, java, java-application, junit, logback, maven, netty-server, readme, shade, yaml ]
+features: [
+  # Dependencies
+    data,
+    data-jpa,
+    graalvm,
+    jdbc-hikari,
+    postgres,
+    testcontainers,
+
+    annotation-api,
+    app-name,
+    http-client,
+    java,
+    java-application,
+    junit,
+    logback,
+    maven,
+    netty-server,
+    readme,
+    shade,
+    yaml
+]
