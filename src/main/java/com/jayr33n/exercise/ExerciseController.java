@@ -1,7 +1,7 @@
 package com.jayr33n.exercise;
 
 import com.jayr33n.domain.Exercise;
-import com.jayr33n.exception.DomainEntityNotFoundException;
+import com.jayr33n.exception.EntityNotFoundException;
 import com.jayr33n.repository.ExerciseRepository;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
@@ -36,20 +36,20 @@ public class ExerciseController {
     @Get("/{id}")
     public Exercise get(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new DomainEntityNotFoundException(id, Exercise.class));
+                .orElseThrow(() -> new EntityNotFoundException(id, Exercise.class));
     }
 
     @Put("/{id}")
     public HttpResponse<?> put(Long id, @Body ExerciseUpdateCommand command) {
         var exercise = repository.findById(id)
-                .orElseThrow(() -> new DomainEntityNotFoundException(id, Exercise.class));
+                .orElseThrow(() -> new EntityNotFoundException(id, Exercise.class));
         repository.update(exercise.map(command));
         return HttpResponse.noContent()
                 .header(HttpHeaders.LOCATION, "/exercises/" + exercise.getId());
     }
 
     @Delete("/{id}")
-    public HttpResponse<Exercise> delete(Long id) {
+    public HttpResponse<?> delete(Long id) {
         repository.deleteById(id);
         return HttpResponse.noContent();
     }

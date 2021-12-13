@@ -1,17 +1,18 @@
 package com.jayr33n.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jayr33n.exercise.ExerciseUpdateCommand;
+import io.micronaut.core.annotation.NonNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,8 +20,8 @@ import javax.validation.constraints.NotNull;
 @ToString
 
 @Entity
-@Table(name = "exercise")
-public class Exercise extends DomainEntity {
+@Table(name = "exercises")
+public class Exercise extends AbstractEntity {
     @NotBlank
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -30,13 +31,28 @@ public class Exercise extends DomainEntity {
     @Enumerated
     private Difficulty difficulty;
 
-    public Exercise(@NotBlank String name,
-                    @NotNull Difficulty difficulty) {
+    @ManyToMany
+    @JoinTable(name = "exercise_muscle",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "muscle_id"))
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Muscle> muscles = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "exercise_equipment",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Equipment> equipment = new HashSet<>();
+
+    public Exercise(@NonNull String name, @NonNull Difficulty difficulty) {
         this.name = name;
         this.difficulty = difficulty;
     }
 
-    public Exercise map(ExerciseUpdateCommand command) {
+    public Exercise map(@NonNull ExerciseUpdateCommand command) {
         this.name = command.getName();
         this.difficulty = command.getDifficulty();
         return this;

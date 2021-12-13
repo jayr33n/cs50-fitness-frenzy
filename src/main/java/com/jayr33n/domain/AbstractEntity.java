@@ -12,8 +12,8 @@ import javax.persistence.MappedSuperclass;
 @Setter
 
 @MappedSuperclass
-public abstract class DomainEntity {
+public abstract class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }
