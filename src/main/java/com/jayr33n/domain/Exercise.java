@@ -1,6 +1,6 @@
 package com.jayr33n.domain;
 
-import com.jayr33n.ExerciseUpdateCommand;
+import com.jayr33n.exercise.ExerciseUpdateCommand;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

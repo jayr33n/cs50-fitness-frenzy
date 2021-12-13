@@ -1,4 +1,4 @@
-package com.jayr33n;
+package com.jayr33n.json;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

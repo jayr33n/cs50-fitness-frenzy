@@ -1,4 +1,4 @@
-package com.jayr33n;
+package com.jayr33n.exception;
 
 public class DomainEntityNotFoundException extends RuntimeException {
     public DomainEntityNotFoundException(Long id, Class<?> type) {

@@ -1,4 +1,4 @@
-package com.jayr33n;
+package com.jayr33n.repository;
 
 import com.jayr33n.domain.Exercise;
 import io.micronaut.data.annotation.Repository;

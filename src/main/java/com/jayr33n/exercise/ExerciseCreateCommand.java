@@ -1,4 +1,4 @@
-package com.jayr33n;
+package com.jayr33n.exercise;
 
 import com.jayr33n.domain.Difficulty;
 import io.micronaut.core.annotation.Introspected;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 
 @Introspected
-public class ExerciseUpdateCommand {
+public class ExerciseCreateCommand {
     @NotBlank
     private String name;
 

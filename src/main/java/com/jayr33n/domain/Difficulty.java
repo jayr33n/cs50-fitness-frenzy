@@ -1,7 +1,7 @@
 package com.jayr33n.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.jayr33n.DifficultyDeserializer;
+import com.jayr33n.json.DifficultyDeserializer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
