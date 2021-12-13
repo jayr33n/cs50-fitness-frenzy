@@ -11,6 +11,8 @@ features: [
     jdbc-hikari,
     postgres,
     testcontainers,
+    h2,
+    lombok,
 
     annotation-api,
     app-name,
