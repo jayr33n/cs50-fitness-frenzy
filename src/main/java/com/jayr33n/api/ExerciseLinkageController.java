@@ -9,11 +9,10 @@ import com.jayr33n.repository.ExerciseRepository;
 import com.jayr33n.repository.ExerciseWorkoutRepository;
 import com.jayr33n.repository.MuscleRepository;
 import com.jayr33n.repository.ToolRepository;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Delete;
-import io.micronaut.http.annotation.Put;
-import io.micronaut.http.annotation.Status;
+import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +27,11 @@ public class ExerciseLinkageController {
     private final MuscleRepository muscleRepository;
     private final ToolRepository toolRepository;
     private final ExerciseWorkoutRepository exerciseWorkoutRepository;
+
+    @Get("/{exerciseId}/muscles")
+    public Page<Muscle> get(Long exerciseId, Pageable pageable) {
+        return muscleRepository.findByExerciseId(exerciseId, pageable);
+    }
 
     @Put("/{exerciseId}/muscles/{muscleId}")
     @Status(HttpStatus.NO_CONTENT)
