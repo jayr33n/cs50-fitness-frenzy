@@ -5,6 +5,7 @@ build/
 target/
 out/
 .idea
+.jpb
 *.iml
 *.ipr
 *.iws
