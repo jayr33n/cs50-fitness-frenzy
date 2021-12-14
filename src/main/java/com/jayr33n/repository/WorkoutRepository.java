@@ -1,8 +1,8 @@
 package com.jayr33n.repository;
 
-import com.jayr33n.domain.Equipment;
+import com.jayr33n.domain.Workout;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface EquipmentRepository extends JpaRepository<Equipment, Long> {}
+public interface WorkoutRepository extends JpaRepository<Workout, Long> {}

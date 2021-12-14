@@ -17,8 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "muscles")
-public class Muscle {
+@Table(name = "tools")
+public class Tool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,12 +27,12 @@ public class Muscle {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "muscles")
+    @ManyToMany(mappedBy = "tools")
     @ToString.Exclude
     @JsonIgnore
     private Set<Exercise> exercises = new HashSet<>();
 
-    public Muscle(@NonNull String name) {
+    public Tool(@NonNull String name) {
         this.name = name;
     }
 }

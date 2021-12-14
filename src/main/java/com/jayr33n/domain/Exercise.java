@@ -20,7 +20,11 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "exercises")
-public class Exercise extends AbstractEntity {
+public class Exercise {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -31,7 +35,7 @@ public class Exercise extends AbstractEntity {
     private Difficulty difficulty;
 
     @ManyToMany
-    @JoinTable(name = "exercise_muscle",
+    @JoinTable(name = "exercises_muscles",
             joinColumns = @JoinColumn(name = "exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "muscle_id"))
     @ToString.Exclude
@@ -39,12 +43,17 @@ public class Exercise extends AbstractEntity {
     private Set<Muscle> muscles = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "exercise_equipment",
+    @JoinTable(name = "exercises_tools",
             joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+            inverseJoinColumns = @JoinColumn(name = "tool_id"))
     @ToString.Exclude
     @JsonIgnore
-    private Set<Equipment> equipment = new HashSet<>();
+    private Set<Tool> tools = new HashSet<>();
+
+    @OneToMany(mappedBy = "exercise")
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<ExerciseWorkout> workouts = new HashSet<>();
 
     public Exercise(@NonNull String name, @NonNull Difficulty difficulty) {
         this.name = name;

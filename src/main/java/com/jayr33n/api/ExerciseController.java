@@ -45,10 +45,4 @@ public class ExerciseController {
                 .orElseThrow(() -> new EntityNotFoundException(id, Exercise.class));
         repository.update(exercise.map(command));
     }
-
-    @Delete("/{id}")
-    @Status(HttpStatus.NO_CONTENT)
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
 }

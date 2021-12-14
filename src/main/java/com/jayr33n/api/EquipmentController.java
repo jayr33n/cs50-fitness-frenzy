@@ -1,9 +1,9 @@
 package com.jayr33n.api;
 
 import com.jayr33n.command.EquipmentCreateCommand;
-import com.jayr33n.domain.Equipment;
+import com.jayr33n.domain.Tool;
 import com.jayr33n.exception.EntityNotFoundException;
-import com.jayr33n.repository.EquipmentRepository;
+import com.jayr33n.repository.ToolRepository;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.http.HttpStatus;
@@ -18,22 +18,22 @@ import javax.validation.Valid;
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/equipment")
 public class EquipmentController {
-    private final EquipmentRepository repository;
+    private final ToolRepository repository;
 
     @Get
-    public Page<Equipment> get(Pageable pageable) {
+    public Page<Tool> get(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     @Post
     @Status(HttpStatus.CREATED)
     public void post(@Body @Valid EquipmentCreateCommand command) {
-        repository.save(new Equipment(command.getName()));
+        repository.save(new Tool(command.getName()));
     }
 
     @Get("/{id}")
-    public Equipment get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Equipment.class));
+    public Tool get(Long id) {
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Tool.class));
     }
 
     @Delete("/{id}")

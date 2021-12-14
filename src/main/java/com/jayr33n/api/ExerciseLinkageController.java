@@ -1,13 +1,14 @@
 package com.jayr33n.api;
 
-import com.jayr33n.domain.Equipment;
 import com.jayr33n.domain.Exercise;
 import com.jayr33n.domain.Muscle;
+import com.jayr33n.domain.Tool;
 import com.jayr33n.exception.EntityLinkageException;
 import com.jayr33n.exception.EntityNotFoundException;
-import com.jayr33n.repository.EquipmentRepository;
 import com.jayr33n.repository.ExerciseRepository;
+import com.jayr33n.repository.ExerciseWorkoutRepository;
 import com.jayr33n.repository.MuscleRepository;
+import com.jayr33n.repository.ToolRepository;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
@@ -25,7 +26,8 @@ import javax.transaction.Transactional;
 public class ExerciseLinkageController {
     private final ExerciseRepository exerciseRepository;
     private final MuscleRepository muscleRepository;
-    private final EquipmentRepository equipmentRepository;
+    private final ToolRepository toolRepository;
+    private final ExerciseWorkoutRepository exerciseWorkoutRepository;
 
     @Put("/{exerciseId}/muscles/{muscleId}")
     @Status(HttpStatus.NO_CONTENT)
@@ -51,27 +53,34 @@ public class ExerciseLinkageController {
         exercise.getMuscles().remove(muscle);
     }
 
-    @Put("/{exerciseId}/equipment/{equipmentId}")
+    @Put("/{exerciseId}/tools/{toolsId}")
     @Status(HttpStatus.NO_CONTENT)
     @Transactional
-    public void addEquipment(Long exerciseId, Long equipmentId) {
+    public void addEquipment(Long exerciseId, Long toolsId) {
         var exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new EntityNotFoundException(exerciseId, Exercise.class));
-        var equipment = equipmentRepository.findById(equipmentId)
-                .orElseThrow(() -> new EntityNotFoundException(equipmentId, Equipment.class));
-        exercise.getEquipment().add(equipment);
+        var equipment = toolRepository.findById(toolsId)
+                .orElseThrow(() -> new EntityNotFoundException(toolsId, Tool.class));
+        exercise.getTools().add(equipment);
     }
 
-    @Delete("/{exerciseId}/equipment/{equipmentId}")
+    @Delete("/{exerciseId}/tools/{toolsId}")
     @Status(HttpStatus.NO_CONTENT)
     @Transactional
-    public void removeEquipment(Long exerciseId, Long equipmentId) {
+    public void removeEquipment(Long exerciseId, Long toolsId) {
         var exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new EntityNotFoundException(exerciseId, Exercise.class));
-        var equipment = equipmentRepository.findById(equipmentId)
-                .orElseThrow(() -> new EntityNotFoundException(equipmentId, Muscle.class));
-        if (!exercise.getEquipment().contains(equipment))
+        var equipment = toolRepository.findById(toolsId)
+                .orElseThrow(() -> new EntityNotFoundException(toolsId, Muscle.class));
+        if (!exercise.getTools().contains(equipment))
             throw new EntityLinkageException();
-        exercise.getEquipment().remove(equipment);
+        exercise.getTools().remove(equipment);
+    }
+
+    @Delete("/{id}")
+    @Status(HttpStatus.NO_CONTENT)
+    public void delete(Long id) {
+        exerciseWorkoutRepository.deleteByExerciseId(id);
+        exerciseRepository.deleteById(id);
     }
 }

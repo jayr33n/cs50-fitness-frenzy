@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,18 +17,22 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "equipment")
-public class Equipment extends AbstractEntity {
+@Table(name = "workouts")
+public class Workout {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "equipment")
+    @OneToMany(mappedBy = "workout")
     @ToString.Exclude
     @JsonIgnore
-    private Set<Exercise> exercises = new HashSet<>();
+    private Set<ExerciseWorkout> exercises = new HashSet<>();
 
-    public Equipment(@NonNull String name) {
+    public Workout(@NonNull String name) {
         this.name = name;
     }
 }
