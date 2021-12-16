@@ -1,6 +1,6 @@
 package com.jayr33n.api;
 
-import com.jayr33n.command.EquipmentCreateCommand;
+import com.jayr33n.command.ToolCreateCommand;
 import com.jayr33n.domain.Tool;
 import com.jayr33n.exception.EntityNotFoundException;
 import com.jayr33n.repository.ToolRepository;
@@ -16,8 +16,8 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @ExecuteOn(TaskExecutors.IO)
-@Controller("/equipment")
-public class EquipmentController {
+@Controller("/tools")
+public class ToolController {
     private final ToolRepository repository;
 
     @Get
@@ -27,7 +27,7 @@ public class EquipmentController {
 
     @Post
     @Status(HttpStatus.CREATED)
-    public void post(@Body @Valid EquipmentCreateCommand command) {
+    public void post(@Body @Valid ToolCreateCommand command) {
         repository.save(new Tool(command.getName()));
     }
 

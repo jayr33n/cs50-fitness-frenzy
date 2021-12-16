@@ -9,6 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Introspected
-public class EquipmentCreateCommand {
+public class ToolCreateCommand {
     @NotBlank private String name;
 }
