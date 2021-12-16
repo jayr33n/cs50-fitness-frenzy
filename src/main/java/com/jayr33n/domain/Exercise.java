@@ -26,7 +26,7 @@ public class Exercise {
     private Long id;
 
     @NotBlank
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
