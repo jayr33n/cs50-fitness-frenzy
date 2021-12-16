@@ -24,7 +24,7 @@ public class Tool {
     private Long id;
 
     @NotBlank
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "tools")
