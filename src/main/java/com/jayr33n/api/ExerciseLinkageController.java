@@ -28,8 +28,13 @@ public class ExerciseLinkageController {
     private final ToolRepository toolRepository;
     private final ExerciseWorkoutRepository exerciseWorkoutRepository;
 
+    @Get("/{exerciseId}/tools")
+    public Page<Tool> getTools(Long exerciseId, Pageable pageable) {
+        return toolRepository.findByExerciseId(exerciseId, pageable);
+    }
+
     @Get("/{exerciseId}/muscles")
-    public Page<Muscle> get(Long exerciseId, Pageable pageable) {
+    public Page<Muscle> getMuscles(Long exerciseId, Pageable pageable) {
         return muscleRepository.findByExerciseId(exerciseId, pageable);
     }
 
