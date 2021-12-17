@@ -42,13 +42,6 @@ public class WorkoutController {
                 .filter();
     }
 
-    @Get("/{workoutId}/exercises")
-    public Page<Exercise> get(Long workoutId, Pageable pageable) {
-        if (!workoutRepository.existsById(workoutId))
-            throw new EntityNotFoundException(workoutId, Workout.class);
-        return exerciseRepository.findByWorkoutId(workoutId, pageable);
-    }
-
     @Post
     @Status(HttpStatus.CREATED)
     @Transactional
