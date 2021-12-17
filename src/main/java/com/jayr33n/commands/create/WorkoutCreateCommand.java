@@ -1,18 +1,18 @@
-package com.jayr33n.command;
+package com.jayr33n.commands.create;
 
-import com.jayr33n.domain.Difficulty;
 import io.micronaut.core.annotation.Introspected;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @Getter
 @Setter
 @Introspected
-public class ExerciseCreateCommand {
+public class WorkoutCreateCommand {
     @NotBlank private String name;
 
-    @NotNull private Difficulty difficulty;
+    @NotNull private Collection<ExerciseWorkoutCreateCommand> exercises;
 }

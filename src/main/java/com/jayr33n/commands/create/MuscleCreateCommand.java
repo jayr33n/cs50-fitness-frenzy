@@ -1,4 +1,4 @@
-package com.jayr33n.command;
+package com.jayr33n.commands.create;
 
 import io.micronaut.core.annotation.Introspected;
 import lombok.Getter;

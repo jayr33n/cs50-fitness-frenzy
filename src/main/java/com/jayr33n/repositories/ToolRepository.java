@@ -1,4 +1,4 @@
-package com.jayr33n.repository;
+package com.jayr33n.repositories;
 
 import com.jayr33n.domain.Tool;
 import io.micronaut.data.annotation.Query;

@@ -1,4 +1,4 @@
-package com.jayr33n.domain;
+package com.jayr33n.domain.keys;
 
 import lombok.Data;
 

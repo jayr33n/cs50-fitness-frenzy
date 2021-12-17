@@ -1,6 +1,8 @@
 package com.jayr33n.domain;
 
-import com.jayr33n.command.ExerciseWorkoutCreateCommand;
+import com.jayr33n.commands.create.ExerciseWorkoutCreateCommand;
+import com.jayr33n.commands.read.ExerciseWorkoutReadCommand;
+import com.jayr33n.domain.keys.ExerciseWorkoutKey;
 import lombok.*;
 
 import javax.persistence.*;
@@ -56,5 +58,9 @@ public class ExerciseWorkout {
                            @NonNull Exercise exercise,
                            @NonNull ExerciseWorkoutCreateCommand command) {
         this(workout, exercise, command.getSets(), command.getRepetitions(), command.getRestInterval());
+    }
+
+    public ExerciseWorkoutReadCommand filter() {
+        return new ExerciseWorkoutReadCommand(sets, repetitions, restInterval, exercise.filter());
     }
 }

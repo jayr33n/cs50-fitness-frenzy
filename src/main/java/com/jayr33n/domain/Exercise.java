@@ -1,7 +1,8 @@
 package com.jayr33n.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jayr33n.command.ExerciseUpdateCommand;
+import com.jayr33n.commands.read.ExerciseReadCommand;
+import com.jayr33n.commands.update.ExerciseUpdateCommand;
 import io.micronaut.core.annotation.NonNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,5 +65,9 @@ public class Exercise {
         this.name = command.getName();
         this.difficulty = command.getDifficulty();
         return this;
+    }
+
+    public ExerciseReadCommand filter() {
+        return new ExerciseReadCommand(id, name, difficulty);
     }
 }

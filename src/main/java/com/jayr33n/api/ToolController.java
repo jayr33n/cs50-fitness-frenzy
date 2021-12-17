@@ -1,9 +1,9 @@
 package com.jayr33n.api;
 
-import com.jayr33n.command.ToolCreateCommand;
+import com.jayr33n.commands.create.ToolCreateCommand;
 import com.jayr33n.domain.Tool;
 import com.jayr33n.exception.EntityNotFoundException;
-import com.jayr33n.repository.ToolRepository;
+import com.jayr33n.repositories.ToolRepository;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.http.HttpStatus;
@@ -25,20 +25,22 @@ public class ToolController {
         return repository.findAll(pageable);
     }
 
+    @Get("/{id}")
+    public Tool get(Long id) {
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Tool.class));
+    }
+
     @Post
     @Status(HttpStatus.CREATED)
     public void post(@Body @Valid ToolCreateCommand command) {
         repository.save(new Tool(command.getName()));
     }
 
-    @Get("/{id}")
-    public Tool get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Tool.class));
-    }
-
     @Delete("/{id}")
     @Status(HttpStatus.NO_CONTENT)
     public void delete(Long id) {
+        if (!repository.existsById(id))
+            throw new EntityNotFoundException(id, Tool.class);
         repository.deleteById(id);
     }
 }

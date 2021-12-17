@@ -1,7 +1,7 @@
-package com.jayr33n.repository;
+package com.jayr33n.repositories;
 
 import com.jayr33n.domain.ExerciseWorkout;
-import com.jayr33n.domain.ExerciseWorkoutKey;
+import com.jayr33n.domain.keys.ExerciseWorkoutKey;
 import io.micronaut.data.annotation.Query;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;

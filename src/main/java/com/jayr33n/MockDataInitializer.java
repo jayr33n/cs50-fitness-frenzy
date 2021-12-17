@@ -1,10 +1,12 @@
 package com.jayr33n;
 
-import com.jayr33n.domain.*;
-import com.jayr33n.repository.ExerciseRepository;
-import com.jayr33n.repository.MuscleRepository;
-import com.jayr33n.repository.ToolRepository;
-import com.jayr33n.repository.WorkoutRepository;
+import com.jayr33n.domain.Difficulty;
+import com.jayr33n.domain.Exercise;
+import com.jayr33n.domain.Muscle;
+import com.jayr33n.domain.Tool;
+import com.jayr33n.repositories.ExerciseRepository;
+import com.jayr33n.repositories.MuscleRepository;
+import com.jayr33n.repositories.ToolRepository;
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.runtime.event.annotation.EventListener;
 import jakarta.inject.Singleton;
@@ -18,7 +20,6 @@ public class MockDataInitializer {
     private final ExerciseRepository exerciseRepository;
     private final MuscleRepository muscleRepository;
     private final ToolRepository toolRepository;
-    private final WorkoutRepository workoutRepository;
 
     @EventListener
     public void onStartupEvent(StartupEvent event) {
@@ -42,9 +43,5 @@ public class MockDataInitializer {
                 new Tool("Bench"),
                 new Tool("TRX"),
                 new Tool("Weight Machines")));
-        workoutRepository.saveAll(List.of(
-                new Workout("Power 90 Schedule"),
-                new Workout("Hit Workout"),
-                new Workout("Spell Your Name Workout")));
     }
 }

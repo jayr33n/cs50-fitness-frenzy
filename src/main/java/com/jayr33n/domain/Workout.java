@@ -1,6 +1,7 @@
 package com.jayr33n.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jayr33n.commands.read.WorkoutReadCommand;
 import io.micronaut.core.annotation.NonNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,12 +30,22 @@ public class Workout {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "workout")
+
+    /**
+     * Forced to eager fetch since {@link Transactional} does not work for some reason
+     */
+    @OneToMany(mappedBy = "workout", fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     private Set<ExerciseWorkout> exercises = new HashSet<>();
 
     public Workout(@NonNull String name) {
         this.name = name;
+    }
+
+    public WorkoutReadCommand filter() {
+        return new WorkoutReadCommand(id, name, exercises.stream()
+                .map(ExerciseWorkout::filter)
+                .collect(Collectors.toSet()));
     }
 }
