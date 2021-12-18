@@ -14,5 +14,7 @@ import java.util.Collection;
 public class WorkoutCreateCommand {
     @NotBlank private String name;
 
+    @NotBlank private String author;
+
     @NotNull private Collection<ExerciseWorkoutCreateCommand> exercises;
 }

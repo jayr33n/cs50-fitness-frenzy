@@ -30,6 +30,10 @@ public class Workout {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank
+    @Column(name = "author", nullable = false)
+    private String author;
+
 
     /**
      * Forced to eager fetch since {@link Transactional} does not work for some reason
@@ -39,12 +43,12 @@ public class Workout {
     @JsonIgnore
     private Set<ExerciseWorkout> exercises = new HashSet<>();
 
-    public Workout(@NonNull String name) {
+    public Workout(@NonNull String name, @NonNull String author) {
         this.name = name;
     }
 
     public WorkoutReadCommand filter() {
-        return new WorkoutReadCommand(id, name, exercises.stream()
+        return new WorkoutReadCommand(id, name, author, exercises.stream()
                 .map(ExerciseWorkout::filter)
                 .collect(Collectors.toSet()));
     }

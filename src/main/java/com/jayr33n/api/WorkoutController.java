@@ -46,7 +46,7 @@ public class WorkoutController {
     @Status(HttpStatus.CREATED)
     @Transactional
     public void post(@Body @Valid WorkoutCreateCommand command) {
-        var workout = workoutRepository.saveAndFlush(new Workout(command.getName()));
+        var workout = workoutRepository.saveAndFlush(new Workout(command.getName(), command.getAuthor()));
         for (var exerciseWorkoutCreateCommand : command.getExercises()) {
             assert exerciseWorkoutCreateCommand.getExerciseId() != null;
             var exercise = exerciseRepository.findById(exerciseWorkoutCreateCommand.getExerciseId())

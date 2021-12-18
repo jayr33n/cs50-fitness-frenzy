@@ -18,5 +18,7 @@ public class WorkoutReadCommand {
 
     @NotBlank private String name;
 
+    @NotBlank private String author;
+
     @NotNull private Collection<ExerciseWorkoutReadCommand> exercises;
 }
