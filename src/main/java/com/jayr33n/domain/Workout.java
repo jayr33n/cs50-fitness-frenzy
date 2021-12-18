@@ -45,6 +45,7 @@ public class Workout {
 
     public Workout(@NonNull String name, @NonNull String author) {
         this.name = name;
+        this.author = author;
     }
 
     public WorkoutReadCommand filter() {
