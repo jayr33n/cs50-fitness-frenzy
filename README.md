@@ -17,7 +17,7 @@ This project is consisted of two main sections:
 - A simple web interface on the front-end built with **[Bootstrap](https://getbootstrap.com/)**
   and **[JQuery](https://jquery.com/)**.
 
-Additional files, diagrams and low-level details are present in the **docs** folder.
+Additional files, diagrams and low-level details are present in the **[docs](https://github.com/jayr33n/cs50-fitness-frenzy/tree/main/docs)** folder.
 
 ## Credits
 
